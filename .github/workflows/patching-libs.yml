@@ -27,7 +27,7 @@ jobs:
           export PATH=/opt/python/cp312-cp312/bin:$PATH
           cmake -S . -B build -DBUILD_SHARED_LIBS=ON -DBUILD_LIBS_ONLY=1 -DCMAKE_BUILD_TYPE=Release
           cmake --build build -j "$(nproc)"
-          mkdir -p out && cp -L build/llvm/lib/libkeystone.so out/libkeystone.so
+          mkdir -p out && cp -L "$(find build -name libkeystone.so | head -1)" out/libkeystone.so  # lib64/ on manylinux
           strip --strip-unneeded out/libkeystone.so
         '
 
